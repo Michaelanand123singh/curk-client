@@ -1,13 +1,21 @@
 {
-  "name": "client",
+  "name": "curk-website",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "CURK - AI-Powered Website Analysis & Lead Generation Platform",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:prod": "NODE_ENV=production vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "lint:fix": "eslint . --fix",
+    "preview": "vite preview",
+    "docker:build": "docker build -t curk-website .",
+    "docker:run": "docker run -p 80:80 curk-website",
+    "docker:push": "docker tag curk-website gcr.io/$PROJECT_ID/curk-website:latest && docker push gcr.io/$PROJECT_ID/curk-website:latest",
+    "deploy:gcp": "gcloud builds submit --config cloudbuild.yaml .",
+    "deploy:local": "npm run build && npm run docker:build && npm run docker:run"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",
